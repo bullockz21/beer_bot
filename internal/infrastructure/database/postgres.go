@@ -22,10 +22,10 @@ func NewPostgresDB(cfg *configs.Config) (*gorm.DB, error) {
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		return nil, fmt.Errorf("connection error: %v", err)
+		return nil, fmt.Errorf("ошибка подлкюченрия: %v", err)
 	}
 
-	log.Println("Successfully connected to database")
+	log.Println("Успешное подключение к базе данных")
 	return db, nil
 }
 

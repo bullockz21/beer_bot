@@ -22,9 +22,9 @@ func Run(db *gorm.DB) error {
 	const migrationDir = "../migrations"
 
 	if err := goose.Up(sqlDB, migrationDir); err != nil {
-		return fmt.Errorf("migration failed: %v", err)
+		return fmt.Errorf("миграция не удалась: %v", err)
 	}
 
-	log.Println("Migrations applied successfully")
+	log.Println("Миграции успешно применены")
 	return nil
 }
