@@ -10,8 +10,9 @@ import (
 	"github.com/bullockz21/beer_bot/internal/controller/telegram"
 	"github.com/bullockz21/beer_bot/internal/infrastructure/database"
 	"github.com/bullockz21/beer_bot/internal/infrastructure/migration"
-
+	"github.com/bullockz21/beer_bot/internal/presenter"
 	"github.com/bullockz21/beer_bot/internal/repository"
+	"github.com/bullockz21/beer_bot/internal/resource"
 	"github.com/bullockz21/beer_bot/internal/usecase"
 )
 
@@ -20,6 +21,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Config error: %v", err)
 	}
+
 	// Инициализация БД
 	db, err := database.NewPostgresDB(cfg)
 	if err != nil {
@@ -35,17 +37,25 @@ func main() {
 		log.Fatalf("Миграция не удалась: %v", err)
 	}
 
-	userRepo := repository.NewUserRepository(db)
-	userUC := usecase.NewUserUseCase(userRepo)
-
-	// Создание бота
+	// Создание бота ДО инициализации зависимостей
 	bot, err := tgbotapi.NewBotAPI(cfg.TelegramToken)
 	if err != nil {
 		log.Fatalf("Bot init failed: %v", err)
 	}
 
-	// Инициализация обработчиков
-	handler := telegram.NewHandler(bot, userUC)
+	// Инициализация слоев приложения
+	userRepo := repository.NewUserRepository(db)
+	userUC := usecase.NewUserUseCase(userRepo)
+	userPresenter := presenter.NewUserPresenter(bot) // Теперь bot доступен
+	userResource := resource.NewUserResource()
+
+	// Инициализация обработчиков с зависимостями
+	handler := telegram.NewHandler(
+		bot,
+		userUC,
+		userPresenter,
+		userResource,
+	)
 
 	// Настройка обновлений
 	u := tgbotapi.NewUpdate(0)
@@ -65,6 +75,5 @@ func main() {
 		}
 	}
 
-	// Инициализация и запуск бота
 	log.Println("Приложение успешно запущено")
 }

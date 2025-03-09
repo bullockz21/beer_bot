@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/bullockz21/beer_bot/internal/dto"
 	"github.com/bullockz21/beer_bot/internal/entity"
 	"github.com/bullockz21/beer_bot/internal/repository"
 )
@@ -16,12 +17,13 @@ func NewUserUseCase(repo repository.UserRepository) *UserUseCase {
 	return &UserUseCase{repo: repo}
 }
 
-func (uc *UserUseCase) HandleStart(ctx context.Context, tgUser *entity.User) (*entity.User, error) {
+// internal/usecase/user_usercase.go
+func (uc *UserUseCase) HandleStart(ctx context.Context, req *dto.UserCreateRequest) (*entity.User, error) {
 	user := &entity.User{
-		TelegramID: tgUser.TelegramID,
-		Username:   tgUser.Username,
-		FirstName:  tgUser.FirstName,
-		Language:   tgUser.Language,
+		TelegramID: req.TelegramID,
+		Username:   req.Username,
+		FirstName:  req.FirstName,
+		Language:   req.Language,
 	}
 
 	if err := uc.repo.CreateOrUpdate(ctx, user); err != nil {
