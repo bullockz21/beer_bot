@@ -16,14 +16,15 @@ func NewUserPresenter(bot *tgbotapi.BotAPI) *UserPresenter {
 	return &UserPresenter{bot: bot}
 }
 
+// presenter/user_presenter.go
 func (p *UserPresenter) PresentUserSuccess(chatID int64, user *dto.UserResponse) error {
-	text := fmt.Sprintf(
-		"👋 Привет, %s!\nID: %d\nUsername: @%s",
+	msg := tgbotapi.NewMessage(chatID, fmt.Sprintf(
+		"🎉 Добро пожаловать, %s!\nВаш аккаунт успешно зарегистрирован!\n\nID: %d\nUsername: @%s",
 		user.FirstName,
 		user.ID,
 		user.Username,
-	)
-	msg := tgbotapi.NewMessage(chatID, text)
+	))
+	msg.ParseMode = "Markdown"
 	_, err := p.bot.Send(msg)
 	return err
 }

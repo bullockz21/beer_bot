@@ -17,7 +17,6 @@ func NewUserUseCase(repo repository.UserRepository) *UserUseCase {
 	return &UserUseCase{repo: repo}
 }
 
-// internal/usecase/user_usercase.go
 func (uc *UserUseCase) HandleStart(ctx context.Context, req *dto.UserCreateRequest) (*entity.User, error) {
 	user := &entity.User{
 		TelegramID: req.TelegramID,

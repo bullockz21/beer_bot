@@ -21,7 +21,11 @@ func NewUserRepository(db *gorm.DB) UserRepository { //конструктор
 }
 
 func (r *userRepo) CreateOrUpdate(ctx context.Context, user *entity.User) error {
-	return r.db.WithContext(ctx).Save(user).Error
+	return r.db.WithContext(ctx).
+		Where(entity.User{TelegramID: user.TelegramID}).
+		Assign(user).
+		FirstOrCreate(user).
+		Error
 }
 
 func (r *userRepo) FindByTelegramID(ctx context.Context, telegramID int64) (*entity.User, error) {
