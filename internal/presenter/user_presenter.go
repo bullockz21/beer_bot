@@ -1,4 +1,3 @@
-// internal/presenter/user_presenter.go
 package presenter
 
 import (

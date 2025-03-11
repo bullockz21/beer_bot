@@ -1,4 +1,3 @@
-// internal/infrastructure/migration/runner.go
 package migration
 
 import (

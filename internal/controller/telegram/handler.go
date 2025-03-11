@@ -32,7 +32,6 @@ func NewHandler(
 	}
 }
 
-// internal/controller/telegram/handler.go
 func (h *Handler) HandleStart(ctx context.Context, update tgbotapi.Update) {
 	// Создаем DTO из входящих данных
 	req := dto.UserCreateRequest{

@@ -1,4 +1,3 @@
-// internal/resource/user_resource.go
 package resource
 
 import (
