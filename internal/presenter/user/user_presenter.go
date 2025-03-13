@@ -3,7 +3,7 @@ package presenter
 import (
 	"fmt"
 
-	"github.com/bullockz21/beer_bot/internal/dto"
+	dto "github.com/bullockz21/beer_bot/internal/dto/user"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 

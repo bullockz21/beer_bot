@@ -4,22 +4,26 @@ import (
 	"context"
 	"log"
 
+	"github.com/sirupsen/logrus"
+
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 
 	"github.com/bullockz21/beer_bot/configs"
 	"github.com/bullockz21/beer_bot/internal/controller/telegram"
 	"github.com/bullockz21/beer_bot/internal/infrastructure/database"
 	"github.com/bullockz21/beer_bot/internal/infrastructure/migration"
-	"github.com/bullockz21/beer_bot/internal/presenter"
-	"github.com/bullockz21/beer_bot/internal/repository"
-	"github.com/bullockz21/beer_bot/internal/resource"
-	"github.com/bullockz21/beer_bot/internal/usecase"
+	presenter "github.com/bullockz21/beer_bot/internal/presenter/user"
+	repository "github.com/bullockz21/beer_bot/internal/repository/user"
+	resource "github.com/bullockz21/beer_bot/internal/resource/user"
+	usecase "github.com/bullockz21/beer_bot/internal/usecase/user"
 )
 
 func main() {
 	cfg, err := configs.Load()
 	if err != nil {
-		log.Fatalf("Config error: %v", err)
+		logrus.WithFields(logrus.Fields{
+			"module": "config",
+		}).Fatalf("Config error: %v", err)
 	}
 
 	// Инициализация БД

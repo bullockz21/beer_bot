@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/bullockz21/beer_bot/internal/entity"
+	entity "github.com/bullockz21/beer_bot/internal/entity/user"
 	"gorm.io/gorm"
 )
 

@@ -4,10 +4,10 @@ import (
 	"context"
 	"log"
 
-	"github.com/bullockz21/beer_bot/internal/dto"
-	"github.com/bullockz21/beer_bot/internal/presenter"
-	"github.com/bullockz21/beer_bot/internal/resource"
-	"github.com/bullockz21/beer_bot/internal/usecase"
+	dto "github.com/bullockz21/beer_bot/internal/dto/user"
+	presenter "github.com/bullockz21/beer_bot/internal/presenter/user"
+	resource "github.com/bullockz21/beer_bot/internal/resource/user"
+	usecase "github.com/bullockz21/beer_bot/internal/usecase/user"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 

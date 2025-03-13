@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/bullockz21/beer_bot/internal/dto"
-	"github.com/bullockz21/beer_bot/internal/entity"
-	"github.com/bullockz21/beer_bot/internal/repository"
+	dto "github.com/bullockz21/beer_bot/internal/dto/user"
+	entity "github.com/bullockz21/beer_bot/internal/entity/user"
+	repository "github.com/bullockz21/beer_bot/internal/repository/user"
 )
 
 type UserUseCase struct {

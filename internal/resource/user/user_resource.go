@@ -1,8 +1,8 @@
 package resource
 
 import (
-	"github.com/bullockz21/beer_bot/internal/dto"
-	"github.com/bullockz21/beer_bot/internal/entity"
+	dto "github.com/bullockz21/beer_bot/internal/dto/user"
+	entity "github.com/bullockz21/beer_bot/internal/entity/user"
 )
 
 type UserResource struct{}
