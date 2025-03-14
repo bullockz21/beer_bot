@@ -6,9 +6,8 @@ import (
 
 	"github.com/sirupsen/logrus"
 
-	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-
 	"github.com/bullockz21/beer_bot/configs"
+	"github.com/bullockz21/beer_bot/internal/bot"
 	"github.com/bullockz21/beer_bot/internal/controller/telegram"
 	"github.com/bullockz21/beer_bot/internal/infrastructure/database"
 	"github.com/bullockz21/beer_bot/internal/infrastructure/migration"
@@ -16,6 +15,7 @@ import (
 	repository "github.com/bullockz21/beer_bot/internal/repository/user"
 	resource "github.com/bullockz21/beer_bot/internal/resource/user"
 	usecase "github.com/bullockz21/beer_bot/internal/usecase/user"
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 func main() {
@@ -42,9 +42,9 @@ func main() {
 	}
 
 	// Создание бота ДО инициализации зависимостей
-	bot, err := tgbotapi.NewBotAPI(cfg.TelegramToken)
+	bot, err := bot.NewBot(cfg)
 	if err != nil {
-		log.Fatalf("Bot init failed: %v", err)
+		log.Fatal("Bot init failed: %v".err)
 	}
 
 	// Инициализация слоев приложения

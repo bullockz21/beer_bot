@@ -1,0 +1,25 @@
+package buttons
+
+import tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+
+// Button структура для кнопки
+type Button struct {
+	Text string
+	Data string
+}
+
+// InlineKeyboard возвращает готовую инлайн-клавиатуру
+func InlineKeyboard(buttons ...Button) tgbotapi.InlineKeyboardMarkup {
+	rows := make([]tgbotapi.InlineKeyboardButton, len(buttons))
+	for i, btn := range buttons {
+		rows[i] = tgbotapi.NewInlineKeyboardButtonData(btn.Text, btn.Data)
+	}
+	return tgbotapi.NewInlineKeyboardMarkup(rows)
+}
+
+// Предопределенные кнопки
+var (
+	MenuButton       = Button{Text: "📜 Меню", Data: "menu"}
+	PromotionsButton = Button{Text: "🔥 Акции", Data: "promotions"}
+	ReviewsButton    = Button{Text: "⭐ Отзывы", Data: "reviews"}
+)
