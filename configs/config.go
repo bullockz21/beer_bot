@@ -2,8 +2,6 @@ package configs
 
 import (
 	"os"
-	//	"strconv"
-	//"strings"
 
 	"github.com/joho/godotenv"
 )
@@ -15,18 +13,16 @@ type Config struct {
 	DBPassword    string
 	DBName        string
 	TelegramToken string
-	AdminIDs      []int64
 }
 
 func Load() (*Config, error) {
+	// Загрузка переменных окружения из файла .env
 	_ = godotenv.Load("../configs/.env")
 
 	port := os.Getenv("DB_PORT")
 	if port == "" {
 		port = "5432"
 	}
-
-	//adminIDs := parseAdminIDs(os.Getenv("ADMIN_IDS"))
 
 	return &Config{
 		DBHost:        os.Getenv("DB_HOST"),
@@ -35,17 +31,5 @@ func Load() (*Config, error) {
 		DBPassword:    os.Getenv("DB_PASSWORD"),
 		DBName:        os.Getenv("DB_NAME"),
 		TelegramToken: os.Getenv("TELEGRAM_BOT_TOKEN"),
-		//AdminIDs:      adminIDs,
 	}, nil
 }
-
-// func parseAdminIDs(input string) []int64 {
-// 	var ids []int64
-// 	for _, s := range strings.Split(input, ",") {
-// 		id, err := strconv.ParseInt(strings.TrimSpace(s), 10, 64)
-// 		if err == nil {
-// 			ids = append(ids, id)
-// 		}
-// 	}
-// 	return ids
-// }
