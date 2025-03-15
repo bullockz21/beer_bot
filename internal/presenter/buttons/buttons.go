@@ -36,7 +36,7 @@ var (
 )
 
 var (
-	ShawarmaButton = Button{Text: "Шаурма", Data: "shawarma"}
+	ShawarmaButton = Button{Text: "Шаурма стандарт", Data: "shawarma"}
 	DrinksButton   = Button{Text: "Напитки", Data: "drinks"}
 	DessertsButton = Button{Text: "Десерты", Data: "desserts"}
 	BackButton     = Button{Text: "Назад", Data: "back"}

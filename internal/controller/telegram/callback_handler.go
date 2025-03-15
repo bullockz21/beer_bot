@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/bullockz21/beer_bot/internal/domain/buttons"
+	"github.com/bullockz21/beer_bot/internal/presenter/buttons"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
