@@ -17,13 +17,11 @@ import (
 )
 
 func main() {
-	// Загрузка конфигурации
 	cfg, err := configs.Load()
 	if err != nil {
 		logrus.WithField("module", "config").Fatalf("Config error: %v", err)
 	}
 
-	// Инициализация базы данных
 	db, err := dbpkg.NewPostgresDB(cfg)
 	if err != nil {
 		log.Fatalf("Не удалось подключиться к базе данных: %v", err)
@@ -34,30 +32,24 @@ func main() {
 		}
 	}()
 
-	// Применяем миграции
 	if err := migration.Run(db); err != nil {
 		log.Fatalf("Миграция не удалась: %v", err)
 	}
 
-	// Создаем Telegram-бота (файл internal/bot/bot.go)
 	bot, err := botPkg.NewBot(cfg)
 	if err != nil {
 		log.Fatalf("Bot init failed: %v", err)
 	}
 
-	// Инициализация бизнес-логики
 	userRepo := userRepositoryPkg.NewUserRepository(db)
 	userUC := userUsecasePkg.NewUserUseCase(userRepo)
 	userPresenter := userPresenterPkg.NewUserPresenter(bot)
 
-	// Создаем обработчики команд и callback
-	// Создаем обработчики
 	startHandler := telegramController.NewStartHandler(userUC, userPresenter)
 	commandHandler := telegramController.NewCommandHandler(startHandler, userPresenter)
 	callbackHandler := telegramController.NewCallbackHandler(bot)
 	handler := telegramController.NewHandler(bot, commandHandler, callbackHandler)
 
-	// Запускаем получение обновлений (файл internal/bot/updates.go)
 	ctx := context.Background()
 	botPkg.ListenUpdates(ctx, bot, handler)
 }

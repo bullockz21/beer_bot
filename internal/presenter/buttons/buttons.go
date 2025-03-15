@@ -2,7 +2,6 @@ package buttons
 
 import tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 
-// Button структура для кнопки
 type Button struct {
 	Text string
 	Data string
@@ -17,6 +16,7 @@ func InlineKeyboard(buttons ...Button) tgbotapi.InlineKeyboardMarkup {
 	return tgbotapi.NewInlineKeyboardMarkup(rows)
 }
 
+// функция создания кнопок в столбик
 func InlineKeyboardColumn(buttons ...Button) tgbotapi.InlineKeyboardMarkup {
 	var rows [][]tgbotapi.InlineKeyboardButton
 	for _, btn := range buttons {
@@ -28,13 +28,14 @@ func InlineKeyboardColumn(buttons ...Button) tgbotapi.InlineKeyboardMarkup {
 	return tgbotapi.InlineKeyboardMarkup{InlineKeyboard: rows}
 }
 
-// Предопределенные кнопки
+// главное меню
 var (
 	MenuButton       = Button{Text: "📜 Меню", Data: "menu"}
 	PromotionsButton = Button{Text: "🔥 Акции", Data: "promotions"}
 	ReviewsButton    = Button{Text: "⭐ Отзывы", Data: "reviews"}
 )
 
+// кнопки после нажатия на меню
 var (
 	ShawarmaButton = Button{Text: "Шаурма стандарт", Data: "shawarma"}
 	DrinksButton   = Button{Text: "Напитки", Data: "drinks"}

@@ -24,11 +24,12 @@ func (h *CallbackHandler) HandleCallback(ctx context.Context, update tgbotapi.Up
 	var text string
 	switch data {
 	case buttons.MenuButton.Data:
-		text := "Выберите категорию:"
 		newKeyboard := buttons.InlineKeyboardColumn(buttons.ShawarmaButton, buttons.DrinksButton, buttons.DessertsButton, buttons.BackButton)
-		msg := tgbotapi.NewMessage(chatID, text)
-		msg.ReplyMarkup = newKeyboard
-		h.bot.Send(msg)
+		// Создаем объект редактирования клавиатуры. chatID и messageID берутся из callback.
+		edit := tgbotapi.NewEditMessageReplyMarkup(chatID, callback.Message.MessageID, newKeyboard)
+		if _, err := h.bot.Send(edit); err != nil {
+			log.Printf("Ошибка обновления клавиатуры: %v", err)
+		}
 
 	case buttons.PromotionsButton.Data:
 		text = "🔥 Актуальные акции:"

@@ -23,12 +23,11 @@ func (p *UserPresenter) PresentError(chatID int64, errorMsg string) error {
 
 // PresentWelcomeMessage отправляет приветственное сообщение с инлайн-клавиатурой.
 func (p *UserPresenter) PresentWelcomeMessage(chatID int64, firstName string) error {
-	text := fmt.Sprintf("Привет, %s! Выберите, что вас интересует:", firstName)
+	text := fmt.Sprintf("Привет, %s! На связи Шаурма 21\n\nХотите сделать заказ по адресу ____?\n\nРежи работы выбранного заведения 10:00-23:00", firstName)
 	msg := tgbotapi.NewMessage(chatID, text)
 
 	// Используем универсальную клавиатуру
-	msg.ReplyMarkup = buttons.InlineKeyboard(buttons.MenuButton, buttons.PromotionsButton, buttons.ReviewsButton)
-
+	msg.ReplyMarkup = buttons.InlineKeyboardColumn(buttons.MenuButton, buttons.PromotionsButton, buttons.ReviewsButton)
 	_, err := p.bot.Send(msg)
 	return err
 }
