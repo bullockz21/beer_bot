@@ -13,7 +13,6 @@ import (
 	"github.com/bullockz21/beer_bot/internal/infrastructure/migration"
 	userPresenterPkg "github.com/bullockz21/beer_bot/internal/presenter/user"
 	userRepositoryPkg "github.com/bullockz21/beer_bot/internal/repository/user"
-	userResourcePkg "github.com/bullockz21/beer_bot/internal/resource/user"
 	userUsecasePkg "github.com/bullockz21/beer_bot/internal/usecase/user"
 )
 
@@ -50,12 +49,11 @@ func main() {
 	userRepo := userRepositoryPkg.NewUserRepository(db)
 	userUC := userUsecasePkg.NewUserUseCase(userRepo)
 	userPresenter := userPresenterPkg.NewUserPresenter(bot)
-	userResource := userResourcePkg.NewUserResource()
 
 	// Создаем обработчики команд и callback
 	// Создаем обработчики
 	startHandler := telegramController.NewStartHandler(userUC, userPresenter)
-	commandHandler := telegramController.NewCommandHandler(startHandler, userPresenter, userResource)
+	commandHandler := telegramController.NewCommandHandler(startHandler, userPresenter)
 	callbackHandler := telegramController.NewCallbackHandler(bot)
 	handler := telegramController.NewHandler(bot, commandHandler, callbackHandler)
 

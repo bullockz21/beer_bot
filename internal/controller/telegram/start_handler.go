@@ -1,10 +1,10 @@
+// internal/telegram/start_handler.go
 package telegram
 
 import (
 	"context"
 	"log"
 
-	dtoUser "github.com/bullockz21/beer_bot/internal/dto/user"
 	presenterUser "github.com/bullockz21/beer_bot/internal/presenter/user"
 	usecaseUser "github.com/bullockz21/beer_bot/internal/usecase/user"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -25,22 +25,22 @@ func NewStartHandler(userUC *usecaseUser.UserUseCase, userPresenter *presenterUs
 }
 
 // HandleStart обрабатывает команду /start.
+// Данные пользователя извлекаются напрямую из update.Message.
 func (h *StartHandler) HandleStart(ctx context.Context, update tgbotapi.Update) {
-	req := dtoUser.UserCreateRequest{
-		TelegramID: update.Message.From.ID,
-		Username:   update.Message.From.UserName,
-		FirstName:  update.Message.From.FirstName,
-		Language:   update.Message.From.LanguageCode,
-	}
+	telegramID := update.Message.From.ID
+	username := update.Message.From.UserName
+	firstName := update.Message.From.FirstName
+	language := update.Message.From.LanguageCode
 
-	if _, err := h.userUC.HandleStart(ctx, &req); err != nil {
+	// Вызываем usecase для создания пользователя.
+	if _, err := h.userUC.CreateUser(ctx, telegramID, username, firstName, language); err != nil {
 		log.Printf("[ERROR] HandleStart: %v", err)
 		h.userPresenter.PresentError(update.Message.Chat.ID, "Не удалось создать пользователя")
 		return
 	}
 
-	// Отправляем приветственное сообщение
-	if err := h.userPresenter.PresentWelcomeMessage(update.Message.Chat.ID, update.Message.From.FirstName); err != nil {
+	// Отправляем приветственное сообщение.
+	if err := h.userPresenter.PresentWelcomeMessage(update.Message.Chat.ID, firstName); err != nil {
 		log.Printf("Ошибка отправки приветственного сообщения: %v", err)
 	}
 }

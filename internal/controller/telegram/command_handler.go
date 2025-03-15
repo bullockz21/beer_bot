@@ -4,7 +4,6 @@ import (
 	"context"
 
 	presenterUser "github.com/bullockz21/beer_bot/internal/presenter/user"
-	resourceUser "github.com/bullockz21/beer_bot/internal/resource/user"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
@@ -12,15 +11,13 @@ import (
 type CommandHandler struct {
 	startHandler  *StartHandler
 	userPresenter *presenterUser.UserPresenter
-	userResource  *resourceUser.UserResource
 }
 
 // NewCommandHandler создает новый CommandHandler.
-func NewCommandHandler(startHandler *StartHandler, userPresenter *presenterUser.UserPresenter, userResource *resourceUser.UserResource) *CommandHandler {
+func NewCommandHandler(startHandler *StartHandler, userPresenter *presenterUser.UserPresenter) *CommandHandler {
 	return &CommandHandler{
 		startHandler:  startHandler,
 		userPresenter: userPresenter,
-		userResource:  userResource,
 	}
 }
 
