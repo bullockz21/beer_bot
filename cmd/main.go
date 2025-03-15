@@ -53,10 +53,10 @@ func main() {
 	userResource := userResourcePkg.NewUserResource()
 
 	// Создаем обработчики команд и callback
-	commandHandler := telegramController.NewCommandHandler(userUC, userPresenter, userResource)
+	// Создаем обработчики
+	startHandler := telegramController.NewStartHandler(userUC, userPresenter)
+	commandHandler := telegramController.NewCommandHandler(startHandler, userPresenter, userResource)
 	callbackHandler := telegramController.NewCallbackHandler(bot)
-
-	// Создаем общий обработчик обновлений
 	handler := telegramController.NewHandler(bot, commandHandler, callbackHandler)
 
 	// Запускаем получение обновлений (файл internal/bot/updates.go)

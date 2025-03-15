@@ -24,7 +24,12 @@ func (h *CallbackHandler) HandleCallback(ctx context.Context, update tgbotapi.Up
 	var text string
 	switch data {
 	case buttons.MenuButton.Data:
-		text = "Вот наше меню..."
+		text := "Выберите категорию:"
+		newKeyboard := buttons.InlineKeyboard(buttons.ShawarmaButton, buttons.DrinksButton, buttons.DessertsButton)
+		msg := tgbotapi.NewMessage(chatID, text)
+		msg.ReplyMarkup = newKeyboard
+		h.bot.Send(msg)
+
 	case buttons.PromotionsButton.Data:
 		text = "🔥 Актуальные акции:"
 	case buttons.ReviewsButton.Data:

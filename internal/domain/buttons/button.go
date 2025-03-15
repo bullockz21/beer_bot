@@ -23,3 +23,11 @@ var (
 	PromotionsButton = Button{Text: "🔥 Акции", Data: "promotions"}
 	ReviewsButton    = Button{Text: "⭐ Отзывы", Data: "reviews"}
 )
+
+var (
+	ShawarmaButton = Button{Text: "Шаурма", Data: "shawarma"}
+	DrinksButton   = Button{Text: "Напитки", Data: "drinks"}
+	DessertsButton = Button{Text: "Десерты", Data: "desserts"}
+)
+
+//newKeyboard := InlineKeyboard(ShawarmaButton, DrinksButton, DessertsButton)
