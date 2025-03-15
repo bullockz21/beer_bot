@@ -29,5 +29,3 @@ var (
 	DrinksButton   = Button{Text: "Напитки", Data: "drinks"}
 	DessertsButton = Button{Text: "Десерты", Data: "desserts"}
 )
-
-//newKeyboard := InlineKeyboard(ShawarmaButton, DrinksButton, DessertsButton)
