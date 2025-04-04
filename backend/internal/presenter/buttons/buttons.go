@@ -30,15 +30,15 @@ func InlineKeyboardColumn(buttons ...Button) tgbotapi.InlineKeyboardMarkup {
 
 // главное меню
 var (
-	MenuButton       = Button{Text: "📜 Меню", Data: "menu"}
-	PromotionsButton = Button{Text: "🔥 Акции", Data: "promotions"}
-	ReviewsButton    = Button{Text: "⭐ Отзывы", Data: "reviews"}
+	MenuButton = Button{Text: "📜 Меню", Data: "menu"}
+	// PromotionsButton = Button{Text: "🔥 Акции", Data: "promotions"}
+	// ReviewsButton    = Button{Text: "⭐ Отзывы", Data: "reviews"}
 )
 
 // кнопки после нажатия на меню
-var (
-	ShawarmaButton = Button{Text: "Шаурма стандарт", Data: "shawarma"}
-	DrinksButton   = Button{Text: "Напитки", Data: "drinks"}
-	DessertsButton = Button{Text: "Десерты", Data: "desserts"}
-	BackButton     = Button{Text: "Назад", Data: "back"}
-)
+// var (
+// 	ShawarmaButton = Button{Text: "Шаурма стандарт", Data: "shawarma"}
+// 	DrinksButton   = Button{Text: "Напитки", Data: "drinks"}
+// 	DessertsButton = Button{Text: "Десерты", Data: "desserts"}
+// 	BackButton     = Button{Text: "Назад", Data: "back"}
+// )
