@@ -41,7 +41,7 @@ func (h *StartHandler) HandleStart(ctx context.Context, update tgbotapi.Update) 
 	}
 
 	// Передаем URL мини‑апп, например, полученный от ngrok
-	miniAppURL := "https://78f8-78-129-140-11.ngrok-free.app" // Замените на актуальный URL
+	miniAppURL := "https://5200-62-210-88-22.ngrok-free.app" // Замените на актуальный URL
 
 	// Отправляем приветственное сообщение с кнопкой для открытия мини‑аппа
 	if err := h.userPresenter.PresentWelcomeMessage(update.Message.Chat.ID, firstName, miniAppURL); err != nil {

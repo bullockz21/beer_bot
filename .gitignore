@@ -1,3 +1,7 @@
 /.env
-/configs/.env
+/backend/configs/.env
 /myreadme.md
+
+
+backend/cmd/server.crt
+backend/cmd/server.key
