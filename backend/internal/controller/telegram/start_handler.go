@@ -26,21 +26,25 @@ func NewStartHandler(userUC *usecaseUser.UserUseCase, userPresenter *presenterUs
 
 // HandleStart обрабатывает команду /start.
 // Данные пользователя извлекаются напрямую из update.Message.
+// Пример в start_handler.go:
 func (h *StartHandler) HandleStart(ctx context.Context, update tgbotapi.Update) {
 	telegramID := update.Message.From.ID
 	username := update.Message.From.UserName
 	firstName := update.Message.From.FirstName
 	language := update.Message.From.LanguageCode
 
-	// Вызываем usecase для создания пользователя.
+	// Вызываем usecase для создания пользователя
 	if _, err := h.userUC.CreateUser(ctx, telegramID, username, firstName, language); err != nil {
 		log.Printf("[ERROR] HandleStart: %v", err)
 		h.userPresenter.PresentError(update.Message.Chat.ID, "Не удалось создать пользователя")
 		return
 	}
 
-	// Отправляем приветственное сообщение.
-	if err := h.userPresenter.PresentWelcomeMessage(update.Message.Chat.ID, firstName); err != nil {
+	// Передаем URL мини‑апп, например, полученный от ngrok
+	miniAppURL := "https://78f8-78-129-140-11.ngrok-free.app" // Замените на актуальный URL
+
+	// Отправляем приветственное сообщение с кнопкой для открытия мини‑аппа
+	if err := h.userPresenter.PresentWelcomeMessage(update.Message.Chat.ID, firstName, miniAppURL); err != nil {
 		log.Printf("Ошибка отправки приветственного сообщения: %v", err)
 	}
 }
