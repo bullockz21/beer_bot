@@ -50,7 +50,7 @@ func main() {
 	log.Printf("Бот запущен: %s", bot.Self.UserName)
 
 	// Настройка webhook
-	webhookURL := "https://5200-62-210-88-22.ngrok-free.app" // замените на ваш HTTPS URL и путь, например, /webhook
+	webhookURL := "https://f47b-62-210-88-22.ngrok-free.app/webhook" // замените на ваш HTTPS URL и путь, например, /webhook
 	webhookConfig, err := tgbotapi.NewWebhook(webhookURL)
 	if err != nil {
 		log.Fatalf("Ошибка создания вебхука: %v", err)
@@ -92,7 +92,8 @@ func main() {
 	// Запуск сервера Gin с поддержкой HTTPS.
 	// Если у вас есть сертификаты, используйте RunTLS. Для разработки можно использовать ngrok.
 	// Для dev режима — запускаем просто HTTP-сервер
-	if err := router.RunTLS(":8443", "server.crt", "server.key"); err != nil {
+	// Вместо router.RunTLS(":8443", "server.crt", "server.key")
+	if err := router.Run(":8080"); err != nil {
 		log.Fatalf("Ошибка запуска сервера: %v", err)
 	}
 
