@@ -1,10 +1,11 @@
-// internal/telegram/start_handler.go
+// internal/controller/telegram/start_handler.go
 package telegram
 
 import (
 	"context"
 	"log"
 
+	"github.com/bullockz21/beer_bot/configs"
 	presenterUser "github.com/bullockz21/beer_bot/internal/presenter/user"
 	usecaseUser "github.com/bullockz21/beer_bot/internal/usecase/user"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -14,19 +15,19 @@ import (
 type StartHandler struct {
 	userUC        *usecaseUser.UserUseCase
 	userPresenter *presenterUser.UserPresenter
+	config        *configs.Config // новое поле для конфигурации
 }
 
-// NewStartHandler создает новый StartHandler.
-func NewStartHandler(userUC *usecaseUser.UserUseCase, userPresenter *presenterUser.UserPresenter) *StartHandler {
+// NewStartHandler создает новый StartHandler и принимает конфигурацию.
+func NewStartHandler(userUC *usecaseUser.UserUseCase, userPresenter *presenterUser.UserPresenter, cfg *configs.Config) *StartHandler {
 	return &StartHandler{
 		userUC:        userUC,
 		userPresenter: userPresenter,
+		config:        cfg,
 	}
 }
 
 // HandleStart обрабатывает команду /start.
-// Данные пользователя извлекаются напрямую из update.Message.
-// Пример в start_handler.go:
 func (h *StartHandler) HandleStart(ctx context.Context, update tgbotapi.Update) {
 	telegramID := update.Message.From.ID
 	username := update.Message.From.UserName
@@ -40,8 +41,8 @@ func (h *StartHandler) HandleStart(ctx context.Context, update tgbotapi.Update) 
 		return
 	}
 
-	// Передаем URL мини‑апп, например, полученный от ngrok
-	miniAppURL := "https://f47b-62-210-88-22.ngrok-free.app" // Замените на актуальный URL
+	// Используем переданную конфигурацию для получения URL мини‑аппа.
+	miniAppURL := h.config.WebhookURL
 
 	// Отправляем приветственное сообщение с кнопкой для открытия мини‑аппа
 	if err := h.userPresenter.PresentWelcomeMessage(update.Message.Chat.ID, firstName, miniAppURL); err != nil {

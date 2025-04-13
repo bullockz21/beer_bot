@@ -13,10 +13,12 @@ type Config struct {
 	DBPassword    string
 	DBName        string
 	TelegramToken string
+	WebhookURL    string
 }
 
 func Load() (*Config, error) {
 	// Загрузка переменных окружения из файла .env
+	// Если .env находится в папке configs, то путь можно оставить "../configs/.env" или указать абсолютный путь
 	_ = godotenv.Load("../configs/.env")
 
 	port := os.Getenv("DB_PORT")
@@ -31,5 +33,6 @@ func Load() (*Config, error) {
 		DBPassword:    os.Getenv("DB_PASSWORD"),
 		DBName:        os.Getenv("DB_NAME"),
 		TelegramToken: os.Getenv("TELEGRAM_BOT_TOKEN"),
+		WebhookURL:    os.Getenv("WEBHOOK_URL"),
 	}, nil
 }

@@ -1,9 +1,7 @@
 package main
 
 import (
-	"context"
 	"log"
-	"net/http"
 
 	"github.com/bullockz21/beer_bot/configs"
 	botPkg "github.com/bullockz21/beer_bot/internal/bot"
@@ -16,6 +14,9 @@ import (
 	"github.com/gin-gonic/gin"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/sirupsen/logrus"
+
+	// Импортируем наш модуль с роутами:
+	"github.com/bullockz21/beer_bot/internal/router"
 )
 
 func main() {
@@ -49,14 +50,14 @@ func main() {
 	}
 	log.Printf("Бот запущен: %s", bot.Self.UserName)
 
-	// Настройка webhook
-	webhookURL := "https://f47b-62-210-88-22.ngrok-free.app/webhook" // замените на ваш HTTPS URL и путь, например, /webhook
+	// Настройка вебхука
+	webhookURL := cfg.WebhookURL + "/api/v1/webhook" // Убедитесь, что это правильный URL
+	// замените на актуальный публичный HTTPS URL
 	webhookConfig, err := tgbotapi.NewWebhook(webhookURL)
 	if err != nil {
 		log.Fatalf("Ошибка создания вебхука: %v", err)
 	}
-	_, err = bot.Request(webhookConfig)
-	if err != nil {
+	if _, err = bot.Request(webhookConfig); err != nil {
 		log.Fatalf("Ошибка установки вебхука: %v", err)
 	}
 
@@ -64,37 +65,16 @@ func main() {
 	userRepo := userRepositoryPkg.NewUserRepository(db)
 	userUC := userUsecasePkg.NewUserUseCase(userRepo)
 	userPresenter := userPresenterPkg.NewUserPresenter(bot)
-
-	startHandler := telegramController.NewStartHandler(userUC, userPresenter)
+	startHandler := telegramController.NewStartHandler(userUC, userPresenter, cfg)
 	commandHandler := telegramController.NewCommandHandler(startHandler, userPresenter)
 	callbackHandler := telegramController.NewCallbackHandler(bot)
 	handler := telegramController.NewHandler(bot, commandHandler, callbackHandler)
 
-	// Создаем Gin-роутер для обработки вебхука
-	router := gin.Default()
-	router.SetTrustedProxies([]string{"127.0.0.1", "::1"}) // Доверять localhost и ngrok
-	// Маршрут для вебхука. Telegram будет слать POST-запросы сюда.
-	router.POST("/webhook", func(c *gin.Context) {
-		log.Println("🔥 Вебхук вызван!") // ← добавь вот это
+	// Используем нашу функцию для настройки маршрутов
+	r := router.SetupRoutes(handler)
 
-		var update tgbotapi.Update
-		if err := c.ShouldBindJSON(&update); err != nil {
-			log.Printf("❌ Ошибка разбора JSON: %v", err)
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-		}
-
-		log.Printf("✅ Update получен: %+v", update) // ← и вот это
-		go handler.ProcessUpdate(context.Background(), update)
-		c.JSON(http.StatusOK, gin.H{"status": "ok"})
-	})
-
-	// Запуск сервера Gin с поддержкой HTTPS.
-	// Если у вас есть сертификаты, используйте RunTLS. Для разработки можно использовать ngrok.
-	// Для dev режима — запускаем просто HTTP-сервер
-	// Вместо router.RunTLS(":8443", "server.crt", "server.key")
-	if err := router.Run(":8080"); err != nil {
+	// Запуск сервера Gin (на порту 8080)
+	if err := r.Run(":8080"); err != nil {
 		log.Fatalf("Ошибка запуска сервера: %v", err)
 	}
-
 }

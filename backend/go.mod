@@ -3,7 +3,7 @@ module github.com/bullockz21/beer_bot
 go 1.23.0
 
 require (
-	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
+	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.2-0.20220518144552-daa1ed199c5a
 	github.com/joho/godotenv v1.5.1
 	github.com/pressly/goose/v3 v3.24.1
 	github.com/sirupsen/logrus v1.9.3
