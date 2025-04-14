@@ -1,0 +1,65 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Backend API for Telegram Beer Bot",
+        "title": "Beer Bot API",
+        "contact": {
+            "name": "Кирилл",
+            "email": "kirill@example.com"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "paths": {
+        "/api/v1/ping": {
+            "get": {
+                "description": "Returns pong message for testing",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Example"
+                ],
+                "summary": "Ping Endpoint",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/webhook": {
+            "post": {
+                "description": "Receives incoming updates from Telegram",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Webhook"
+                ],
+                "summary": "Webhook Endpoint",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

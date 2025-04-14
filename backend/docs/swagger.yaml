@@ -1,0 +1,43 @@
+basePath: /api/v1
+host: localhost:8080
+info:
+  contact:
+    email: kirill@example.com
+    name: Кирилл
+  description: Backend API for Telegram Beer Bot
+  title: Beer Bot API
+  version: "1.0"
+paths:
+  /api/v1/ping:
+    get:
+      description: Returns pong message for testing
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Ping Endpoint
+      tags:
+      - Example
+  /api/v1/webhook:
+    post:
+      consumes:
+      - application/json
+      description: Receives incoming updates from Telegram
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Webhook Endpoint
+      tags:
+      - Webhook
+swagger: "2.0"
