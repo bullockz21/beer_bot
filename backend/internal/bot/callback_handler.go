@@ -25,7 +25,6 @@ func (h *CallbackHandler) HandleCallback(ctx context.Context, update tgbotapi.Up
 	switch data {
 	case buttons.MenuButton.Data:
 		newKeyboard := buttons.InlineKeyboardColumn(buttons.ShawarmaButton, buttons.DrinksButton, buttons.DessertsButton, buttons.BackButton)
-		// Создаем объект редактирования клавиатуры. chatID и messageID берутся из callback.
 		edit := tgbotapi.NewEditMessageReplyMarkup(chatID, callback.Message.MessageID, newKeyboard)
 		if _, err := h.bot.Send(edit); err != nil {
 			log.Printf("Ошибка обновления клавиатуры: %v", err)
@@ -42,7 +41,6 @@ func (h *CallbackHandler) HandleCallback(ctx context.Context, update tgbotapi.Up
 	msg := tgbotapi.NewMessage(chatID, text)
 	h.bot.Send(msg)
 
-	// Подтверждаем callback, чтобы Telegram не показывал "Загрузка..."
 	callbackConfig := tgbotapi.NewCallback(callback.ID, "")
 	if _, err := h.bot.Request(callbackConfig); err != nil {
 		log.Printf("Ошибка отправки callback ответа: %v", err)

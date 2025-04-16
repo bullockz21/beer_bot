@@ -1,4 +1,3 @@
-// internal/domain/user.go
 package domain
 
 import (
@@ -56,7 +55,7 @@ func (u *User) IsValid() bool {
 	return u.TelegramID > 0 && u.Username != "" && u.FirstName != ""
 }
 
-// Repository теперь принимает context и возвращает доменный объект.
+// Repository теперь принимает context и возвращает доменный объект
 type Repository interface {
 	Save(ctx context.Context, user *User) error
 	FindByTelegramID(ctx context.Context, telegramID int64) (*User, error)

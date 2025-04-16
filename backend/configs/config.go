@@ -17,8 +17,6 @@ type Config struct {
 }
 
 func Load() (*Config, error) {
-	// Загрузка переменных окружения из файла .env
-	// Если .env находится в папке configs, то путь можно оставить "../configs/.env" или указать абсолютный путь
 	_ = godotenv.Load("../configs/.env")
 
 	port := os.Getenv("DB_PORT")

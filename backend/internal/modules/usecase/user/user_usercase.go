@@ -1,4 +1,3 @@
-// internal/usecase/user/user_usecase.go
 package user
 
 import (

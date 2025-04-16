@@ -23,7 +23,7 @@ func (p *UserPresenter) PresentError(chatID int64, errorMsg string) error {
 }
 
 // PresentWelcomeMessage отправляет приветственное сообщение с Web App кнопкой.
-// miniAppURL — это HTTPS URL вашего мини‑приложения.
+// miniAppURL — это HTTPS URL мини‑приложения.
 func (p *UserPresenter) PresentWelcomeMessage(chatID int64, firstName, miniAppURL string) error {
 	text := fmt.Sprintf("Привет, %s! На связи служба доставки \"Рыба и Рис\".\nНажмите кнопку ниже, чтобы сделать заказ.", firstName)
 	webAppButton := tgbotapi.NewInlineKeyboardButtonWebApp("Сделать заказ", tgbotapi.WebAppInfo{

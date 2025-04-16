@@ -9,7 +9,7 @@ package router
 
 import (
 	"github.com/bullockz21/beer_bot/internal/bot"
-	"github.com/bullockz21/beer_bot/internal/controller/telegram"
+	telegram "github.com/bullockz21/beer_bot/internal/controller/telegram/webhook"
 	"github.com/gin-gonic/gin"
 )
 

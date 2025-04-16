@@ -7,13 +7,11 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-// CommandHandler отвечает за обработку текстовых команд.
 type CommandHandler struct {
 	startHandler  *StartHandler
 	userPresenter *presenterUser.UserPresenter
 }
 
-// NewCommandHandler создает новый CommandHandler.
 func NewCommandHandler(startHandler *StartHandler, userPresenter *presenterUser.UserPresenter) *CommandHandler {
 	return &CommandHandler{
 		startHandler:  startHandler,
@@ -21,7 +19,6 @@ func NewCommandHandler(startHandler *StartHandler, userPresenter *presenterUser.
 	}
 }
 
-// HandleCommand распределяет команды.
 func (h *CommandHandler) HandleCommand(ctx context.Context, update tgbotapi.Update) {
 	switch update.Message.Command() {
 	case "start":

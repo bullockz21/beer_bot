@@ -11,14 +11,12 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-// StartHandler обрабатывает команду /start.
 type StartHandler struct {
 	userUC        *usecaseUser.UserUseCase
 	userPresenter *presenterUser.UserPresenter
-	config        *configs.Config // новое поле для конфигурации
+	config        *configs.Config
 }
 
-// NewStartHandler создает новый StartHandler и принимает конфигурацию.
 func NewStartHandler(userUC *usecaseUser.UserUseCase, userPresenter *presenterUser.UserPresenter, cfg *configs.Config) *StartHandler {
 	return &StartHandler{
 		userUC:        userUC,
