@@ -1,13 +1,13 @@
 // internal/controller/telegram/start_handler.go
-package telegram
+package bot
 
 import (
 	"context"
 	"log"
 
 	"github.com/bullockz21/beer_bot/configs"
-	presenterUser "github.com/bullockz21/beer_bot/internal/presenter/user"
-	usecaseUser "github.com/bullockz21/beer_bot/internal/usecase/user"
+	presenterUser "github.com/bullockz21/beer_bot/internal/modules/presenter/user"
+	usecaseUser "github.com/bullockz21/beer_bot/internal/modules/usecase/user"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 

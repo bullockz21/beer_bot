@@ -1,9 +1,9 @@
-package telegram
+package bot
 
 import (
 	"context"
 
-	presenterUser "github.com/bullockz21/beer_bot/internal/presenter/user"
+	presenterUser "github.com/bullockz21/beer_bot/internal/modules/presenter/user"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 

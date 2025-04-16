@@ -1,10 +1,10 @@
-package telegram
+package bot
 
 import (
 	"context"
 	"log"
 
-	"github.com/bullockz21/beer_bot/internal/presenter/buttons"
+	"github.com/bullockz21/beer_bot/internal/modules/presenter/buttons"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 

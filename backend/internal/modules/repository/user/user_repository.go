@@ -4,8 +4,8 @@ package repository
 import (
 	"context"
 
-	"github.com/bullockz21/beer_bot/internal/domain"
-	entityUser "github.com/bullockz21/beer_bot/internal/entity/user"
+	"github.com/bullockz21/beer_bot/internal/modules/domain"
+	entityUser "github.com/bullockz21/beer_bot/internal/modules/entity/user"
 	"gorm.io/gorm"
 )
 

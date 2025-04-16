@@ -5,7 +5,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/bullockz21/beer_bot/internal/domain"
+	"github.com/bullockz21/beer_bot/internal/modules/domain"
 )
 
 type UserUseCase struct {

@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/bullockz21/beer_bot/internal/bot"
 	"github.com/gin-gonic/gin"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/sirupsen/logrus"
@@ -17,7 +18,7 @@ import (
 // @Produce json
 // @Success 200 {object} map[string]string
 // @Router /api/v1/webhook [post]
-func WebhookHandler(handler *Handler) gin.HandlerFunc {
+func WebhookHandler(handler *bot.Handler) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		logrus.Info("🔥 Вебхук вызван!")
 		var update tgbotapi.Update
